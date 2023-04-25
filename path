@@ -1,0 +1,90 @@
+###########################################################
+#Path not mandatory for mhcflurry, if mhcflurry is installed in conda environment. If not, path for mhcflurry is mandatory.
+#Make sure you set "conda_env" variable below to corresponding conda environment name, if path is not mentioned, else mention it as "NONE".
+
+mhcflurry=/home/user/mambaforge/envs/tensorENV/bin/
+conda_env=tensorENV
+
+##########################################################
+#Path for MHCSeqNet is mandatory, irrespective of it's presence in conda environment
+#Make sure you set conda_env variable to corresponding conda environment name, if applicable.
+
+mhcseqnet=/home/user/Documents/Softwares/MHCSeqNet-master/
+conda_env=MHCSEQ
+
+###########################################################
+#Path for NetMHCPan is mandatory, irrespective of it's presence in conda environment
+
+netmhcpani=/home/user/Documents/Softwares/netMHCpan-4.1/
+conda_env=NONE
+
+###########################################################
+#Path for NetTepi is mandatory, irrespective of it's presence in conda environment
+#Since NetTepi adopts Python 2.7, users are advised to metion the conda environment having Python 2.7 to execute NetTepi. 
+#In such case, make sure you set $conda_env variable to corresponding conda environment name
+
+nettepi=/home/user/Documents/Softwares/netTepi-1.0/
+conda_env=python2
+
+###########################################################
+
+#Path for NetCTLPan is mandatory, irrespective of it's presence in conda environment
+#Make sure you set conda_env variable to corresponding conda environment name, if applicable.
+
+netctlpan=/home/user/Documents/Softwares/netCTLpan-1.1/
+conda_env=NONE
+
+###########################################################
+
+#Path for BLAST executable is not mandatory, if it is installed in conda environment. If not, path for BLAST is mandatory.
+#Make sure you set conda_env variable to corresponding conda environment name, if applicable.
+
+blast=/home/user/mambaforge/envs/BLAST/bin/
+conda_env=NONE
+
+###########################################################
+
+#Path for MHCSeqNet is mandatory, irrespective of it's presence in conda environment
+#Make sure you set conda_env variable to corresponding conda environment name, if applicable.
+
+mixmhc2=/home/user/Documents/Softwares/MixMHC2pred-master/
+conda_env=NONE
+
+###########################################################
+
+#Path for NetMHCPanII is mandatory, irrespective of it's presence in conda environment
+
+netmhcpanii=/home/user/Documents/Softwares/netMHCIIpan-4.1/
+conda_env=NONE
+
+###########################################################
+
+#Path for LBEEP is mandatory, irrespective of it's presence in conda environment
+#Makesure you have entered the full path of LBEEP executable inside the LBEEP4IMM file of the LBEEP package. For more details refer readme.md in the LBEEP package.
+
+lbeep=/home/user/Documents/Softwares/LBEEP-master/
+conda_env=NONE
+
+###########################################################
+#Path for epidope is not mandatory.
+#Conda environment for epidope is mandatory.
+
+epidope=NONE
+conda_env=epidope
+
+###########################################################
+#Path for IEDB population coverage tool is mandatory.
+#Conda environment for epidope is not mandatory.
+
+IEDBpop=/home/user/Documents/Softwares/PC/
+conda_env=NONE
+
+###########################################################
+
+#conda environment for OCTAVE is mandatory.
+
+octave=NONE
+conda_env=OCTAVE
+
+###########################################################
+

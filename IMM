@@ -1,0 +1,173 @@
+#! usr/bin/perl
+
+#Fetch File Argument
+
+`mkdir temp`;
+
+my $inFile = $ARGV[0];
+$inFile =~s/\s//g;
+
+open(FILE,$inFile);
+@Ft = <FILE>;
+$Jobname = $Ft[0];
+$Jobname = substr($Jobname,1,12);
+close(FILE);
+
+#Execute Parse Script
+$Parse = `perl bin/Fparse.pl $inFile 2> temp/errlog`; #Fparse script
+if($Parse eq '1'){
+	print "\nFile read and Parsing Success!\n";
+}else{
+	print "$Parse \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+#Execute BLAST
+$BLAST = `perl bin/blast.pl 2>> temp/errlog`; 
+if($BLAST eq '1'){
+	print "\nBLAST completed\n";
+}else{
+	print "$BLAST \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+#Execute MHC - I
+
+#Execute MHCFlurry
+$Flurry = `perl bin/mhcflurry.pl 2>> temp/errlog`; 
+if($Flurry eq '1'){
+	print "\nFlurry completed\n";
+}else{
+	print "$Flurry \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+#Execute MHCSeqnet
+$Seqnet = `perl bin/mhcseqnet.pl 2>> temp/errlog`; 
+if($Seqnet eq '1'){
+	print "\nMHCSeqnet completed\n";
+}else{
+	print "$Seqnet \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+#Execute netmhcpanI
+$NetI = `perl bin/netmhci.pl 2>> temp/errlog`; 
+if($NetI eq '1'){
+	print "\nNetMHCI completed\n";
+}else{
+	print "$NetI \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+
+#Execute MHC - II
+
+#Execute MixMHC2 
+$MixMHC = `perl bin/MixMHC2.pl 2>> temp/errlog`; 
+if($MixMHC eq '1'){
+	print "\nMixMHCII completed\n";
+}else{
+	print "$NetI \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+#Execute netmhcII
+$NetII = `perl bin/netmhcii.pl 2>> temp/errlog`; 
+if($NetII eq '1'){
+	print "\nNetMHCII completed\n";
+}else{
+	print "$NetI \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+#Execute Other
+
+#NetCTLPAN #TAP #CLEVAGE
+$NetCTL = `perl bin/netctlpan.pl 2>> temp/errlog`; 
+if($NetCTL eq '1'){
+	print "\nNetCTLPan completed\n";
+}else{
+	print "$NetCTL \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+#Tcell Propensity
+$NetTepi = `perl bin/nettepi.pl 2>> temp/errlog`; 
+if($NetTepi eq '1'){
+	print "\nNetTepi completed\n";
+}else{
+	print "$NetTepi \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+#Execute B-Cell
+
+#LBEEP
+$LBEEP = `perl bin/lbeep.pl 2>> temp/errlog`; 
+if($LBEEP eq '1'){
+	print "\nLBEEP completed\n";
+}else{
+	print "$LBEEP \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+#Epidope
+$Epidope = `perl bin/epidope.pl 2>> temp/errlog`; 
+if($Epidope eq '1'){
+	print "\nEpidope completed\n";
+}else{
+	print "$Epidope \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+print "\n\nMHC-I Binding Parsing initiated \n\n";
+
+#MHCI parsing
+$parseMHCI = `perl bin/mhc1parse.pl 2>> temp/errlog`;
+if($parseMHCI eq '1'){
+	print "\nMHC-I Result parsing completed\n";
+}else{
+	print "$parseMHCI \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+print "\n\nMHC-I Binding Parsing Completed \n\n";
+
+#MHCII parsing
+$parseMHCII = `perl bin/mhc2parse.pl 2>> temp/errlog`;
+if($parseMHCII eq '1'){
+	print "\nMHC-II Result parsing completed\n";
+}else{
+	print "$parseMHCII \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+print "\n\nMHC-II Binding Parsing Completed \n\n";
+
+#Bcell parsing
+$parseBcell = `perl bin/bcellparse.pl 2>> temp/errlog`;
+if($parseBcell eq '1'){
+	print "\nBcell Result parsing completed\n";
+}else{
+	print "$parseBcell \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+print "\n\nBcell Parsing Completed \n\n";
+
+
+#Final result
+$result = `perl bin/scorer.pl 2>> temp/errlog`;
+if($result eq '1'){
+	print "\nJob completed\n";
+}else{
+	print "$result \n Exiting due to warnings or error! Please check temp/errlog file for details!\n";
+	exit;
+}
+
+`mv -f temp results/$Jobname`;
+
+print "\n\nJob Finished Scuessfully $Jobname\n\n";
+
+
