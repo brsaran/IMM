@@ -1,4 +1,4 @@
-# IMM — Integrated MHC–B-cell Reciprocity Mapper
+# IMM — Integrated MHC/B-cell Epitope Mapper for T–B Reciprocity
 
 IMM is a Perl-based pipeline that scans a protein sequence and predicts **T-B cell epitope "reciprocity"** — regions where MHC class I (T-cell, CD8+), MHC class II (T-cell, CD4+) and B-cell epitope predictions overlap or sit adjacent to one another along the same stretch of sequence. It does this by orchestrating **nine external immune-prediction tools**, parsing their outputs, and combining the individual predictions into a single confidence call per position using a **fuzzy logic inference system** (built in Octave).
 
@@ -83,7 +83,7 @@ IMM itself is glue code — all of the actual predictions come from the followin
 | MHC-II binding | **NetMHCIIpan** (4.1) | MHC class II binding prediction (DTU Health Tech) |
 | T-cell epitope features | **NetCTLpan** (1.1) | Integrated CTL epitope prediction (binding + cleavage + TAP) |
 | T-cell immunogenicity | **NetTepi** (1.0) | T-cell epitope propensity/immunogenicity (requires Python 2.7) |
-| B-cell epitope | **LBEEP** | Linear B-cell epitope prediction |
+| B-cell epitope | **LBEEP** ([source](https://github.com/brsaran/LBEEP/)) | Linear B-cell epitope prediction |
 | B-cell epitope | **Epidope** | Deep-learning B-cell epitope prediction |
 | Population coverage | **IEDB Population Coverage Tool** | Estimates population coverage of predicted binders |
 | Score fusion | **GNU Octave** + **fuzzy-logic-toolkit** package | Combines multiple raw tool scores into a single fuzzy (Low/Moderate/High) call |
@@ -97,7 +97,7 @@ IMM itself is glue code — all of the actual predictions come from the followin
 - **Conda or Mamba** — most tools above are expected to run either from a direct install path or inside a named conda/mamba environment (IMM supports both, see §5).
 - **GNU Octave**, run from its own conda environment, with the **`fuzzy-logic-toolkit`** package installed (`pkg install fuzzy-logic-toolkit` inside Octave). IMM checks for this package automatically before running fuzzy scoring.
 - **BLAST+** (`blastp`) — either on `PATH`/a given install directory, or inside a conda environment.
-- Each of MHCflurry, MHCSeqNet, NetMHCpan, MixMHC2pred, NetMHCIIpan, NetCTLpan, NetTepi, LBEEP, Epidope, and the IEDB Population Coverage tool must be **installed/downloaded separately** by the user (several, such as the NetMHC family and NetCTLpan, require an academic license from DTU Health Tech). NetTepi specifically requires a **Python 2.7** environment.
+- Each of MHCflurry, MHCSeqNet, NetMHCpan, MixMHC2pred, NetMHCIIpan, NetCTLpan, NetTepi, LBEEP (available at [github.com/brsaran/LBEEP](https://github.com/brsaran/LBEEP/)), Epidope, and the IEDB Population Coverage tool must be **installed/downloaded separately** by the user (several, such as the NetMHC family and NetCTLpan, require an academic license from DTU Health Tech). NetTepi specifically requires a **Python 2.7** environment.
 
 ---
 
@@ -115,7 +115,7 @@ Rules:
 - If a tool is **not** run from a conda environment, set `conda_env=NONE` and make sure the directory path is filled in.
 - Some tools' path is *only* required if they are **not** in a conda environment (e.g. `mhcflurry`, `blast`); for others the path is **mandatory regardless** of conda usage (e.g. `mhcseqnet`, `netmhcpani`, `nettepi`, `netctlpan`, `mixmhc2`, `netmhcpanii`, `lbeep`, `IEDBpop`) — see the comments already present in the `path` file for each entry.
 - `octave`'s path is always left as `NONE`; only its `conda_env` needs to be set, and that environment must have `fuzzy-logic-toolkit` installed.
-- For **LBEEP**, in addition to setting its path here, you must also edit the `LBEEP4IMM` file inside your LBEEP installation to point to the LBEEP executable — see the LBEEP package's own README for details.
+- **LBEEP** can be obtained from [github.com/brsaran/LBEEP](https://github.com/brsaran/LBEEP/). In addition to setting its path here, you must also edit the `LBEEP4IMM` file inside your LBEEP installation to point to the LBEEP executable — see that repository's own README for details.
 - For **NetTepi**, point `conda_env` at an environment running Python 2.7.
 
 | Key in `path` | Tool | Path mandatory? |
