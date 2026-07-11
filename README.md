@@ -193,3 +193,11 @@ This README does not document or modify the specific fuzzy rules/membership func
 - If you see `Environment <name> does not exist!`, the conda/mamba environment named in `path` isn't available — create it or fix the name.
 - If MHC-I/II or fuzzy scoring fails with `Fuzzy-logic-toolkit is not installed`, install it inside your Octave conda environment: run `octave --eval "pkg install -forge fuzzy-logic-toolkit"` (or install from source) inside that environment.
 - Check `temp/errlog` (or `error.log` in batch mode) for the specific external-tool error when a stage fails.
+
+---
+
+## License
+
+This project is licensed under the **MIT License**. You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of this software, provided that the original copyright notice and this permission notice are retained. See the [LICENSE](LICENSE) file for the full text.
+
+Copyright (c) 2026 Saravanan V and the Indian Council of Medical Research (ICMR)
